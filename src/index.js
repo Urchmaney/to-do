@@ -1,23 +1,19 @@
 import {ToDo,Project} from './logic'
 
-const projects = [];
 let current_project = 0;
 const getDefaultProject = () => {
-    if(projects.length===0){
-        const temp = Project('javascript');
-        projects.push(temp);
-        current_project = temp;
+    if(getProjects().length===0){
+        createProject('javascript');
         return current_project;
     }
     else{
-        return projects[0];
+        return getProjects()[0];
     }
 }
-
 const createProject = (name) => {
     const project = Project(name);
-    projects.push(project);
     current_project = project;
+    addProject(current_project);
 }
 
 const deleteProject = (currProject) => {
@@ -26,10 +22,6 @@ const deleteProject = (currProject) => {
            projects.slice(index,1);
            current_project = projects[0];
        }
-   }); 
+   })
+   updateProjects(); 
 }
-
-
-
-
-
