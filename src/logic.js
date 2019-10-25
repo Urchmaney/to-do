@@ -6,8 +6,9 @@ const ToDo = function(title,description,dueDate,priority){
     return {getTitle,getDescription,getDueDate,getPriority}
 }
 
-const Project = function(){
+const Project = function(name){
     const toDos = [];
+    const getName = () => name
     const addTodo = (todo)=>{
         toDos.push(todo);
     }
@@ -19,7 +20,7 @@ const Project = function(){
         })
     }
     const getTodos = () => toDos
-    return {addTodo,removeTodo,getTodos}
+    return {getName,addTodo,removeTodo,getTodos}
 }
 
 export{
