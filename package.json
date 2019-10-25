@@ -18,6 +18,10 @@
   },
   "homepage": "https://github.com/Urchmaney/to-do#readme",
   "dependencies": {
+    "css-loader": "^3.2.0",
+    "file-loader": "^4.2.0",
+    "fileloader": "^2.0.0",
+    "style-loader": "^1.0.0",
     "webpack": "^4.41.2"
   }
 }
