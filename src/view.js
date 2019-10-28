@@ -1,4 +1,4 @@
-import { addTodo, createProject,currentProject, changeCurrentProject } from './index';
+import { addTodo, createProject, deleteTodo, changeCurrentProject } from './index';
 
 const renderTodoForm = () => {
   const content = document.getElementById('content');
@@ -82,7 +82,6 @@ const renderProjects = (projects) => {
   btnAddProject.addEventListener('click', renderProjectForm);
 };
 
-
 const renderTodo = (todo) => {
   const content = document.getElementById('content');
   content.innerHTML = '';
@@ -90,6 +89,8 @@ const renderTodo = (todo) => {
   const description = document.createElement('div');
   const dueDate = document.createElement('div');
   const priority = document.createElement('div');
+  const deleteBtn = document.createElement('button');
+  deleteBtn.innerHTML = 'Delete Todo';
   title.innerHTML = todo.title;
   description.innerHTML = todo.description;
   dueDate.innerHTML = todo.dueDate;
@@ -98,6 +99,8 @@ const renderTodo = (todo) => {
   content.appendChild(description);
   content.appendChild(dueDate);
   content.appendChild(priority);
+  content.appendChild(deleteBtn);
+  deleteBtn.addEventListener('click', () => { deleteTodo(todo.title)});
 };
 
 export {

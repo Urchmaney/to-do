@@ -29,6 +29,19 @@ const addTodo = (todo) => {
   view.renderProjectToDo(projects[currentProject]);
 };
 
+const deleteTodo = (td) => {
+  const projects = storage.getProjects();
+  projects[currentProject].toDos.forEach((todo, index) =>
+   {
+      if (td === todo.title) {
+        projects[currentProject].toDos.splice(index, 1);
+      }
+    });
+    storage.setProjects(projects);
+    view.renderProjects(projects);
+    view.renderProjectToDo(projects[currentProject]);
+  };
+
 const changeCurrentProject = (index) => {
   currentProject = index;
 }
@@ -49,4 +62,5 @@ export {
   addTodo,
   createProject,
   changeCurrentProject,
+  deleteTodo,
 };
