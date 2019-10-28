@@ -9,7 +9,7 @@ const createProject = (name) => {
   storage.addProject(project);
   const projects = storage.getProjects();
   currentProject = projects.length - 1;
-  view.renderProjects(projects);
+  view.renderProjects(projects, currentProject);
   view.renderProjectToDo(project);
 };
 
@@ -25,7 +25,7 @@ const addTodo = (todo) => {
   const projects = storage.getProjects();
   projects[currentProject].toDos.push(todo);
   storage.setProjects(projects);
-  view.renderProjects(projects);
+  view.renderProjects(projects, currentProject);
   view.renderProjectToDo(projects[currentProject]);
 };
 
@@ -38,7 +38,7 @@ const deleteTodo = (td) => {
       }
     });
     storage.setProjects(projects);
-    view.renderProjects(projects);
+    view.renderProjects(projects, currentProject);
     view.renderProjectToDo(projects[currentProject]);
   };
 
@@ -48,7 +48,7 @@ const changeCurrentProject = (index) => {
 
 const loadView = () => {
   const project = getDefaultProject();
-  view.renderProjects(storage.getProjects());
+  view.renderProjects(storage.getProjects(), currentProject);
   view.renderProjectToDo(project);
 };
 

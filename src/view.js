@@ -72,7 +72,7 @@ const renderProjectForm = () => {
   submitButton.addEventListener('click', getProjectName);
 };
 
-const renderProjects = (projects) => {
+const renderProjects = (projects, currentProject) => {
   const projectContainer = document.getElementById('projects');
   projectContainer.innerHTML = '';
   const btnAddProject = document.createElement('button');
@@ -84,10 +84,17 @@ const renderProjects = (projects) => {
     const project = document.createElement('div');
     project.id = `project${index}`;
     project.innerHTML = element.name;
+    if (index === currentProject){
+      project.classList.add('currProject');
+    }
     project.classList.add('project');
     project.addEventListener('click', () => {
       renderProjectToDo(element);
+      const cur = document.getElementsByClassName('currProject')[0];
+      cur.classList.remove('currProject');
       changeCurrentProject(index);
+      project.classList.add('currProject');
+      renderProjects(projects, index);
     });
     projectContainer.appendChild(project);
   });

@@ -47,6 +47,14 @@ header{
     clear: both;
 }
 
+.project:hover{
+    background-color: lightgrey;
+}
+
+.currProject{
+    background-color: cadetblue;
+}
+
 .add-td-btn{
     width:200px;
     height:30px;
