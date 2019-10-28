@@ -1,4 +1,5 @@
 import { addTodo, createProject, deleteTodo, changeCurrentProject } from './index';
+import { formatRelative, subDays } from 'date-fns';
 
 const renderTodoForm = () => {
   const content = document.getElementById('content');
@@ -8,8 +9,10 @@ const renderTodoForm = () => {
   const descriptionInput = document.createElement('input');
   descriptionInput.id = 't-description';
   const dueDateInput = document.createElement('input');
+  dueDateInput.setAttribute('type', 'date');
   dueDateInput.id = 't-duedate'
   const priorityInput = document.createElement('input');
+  priorityInput.setAttribute('type', 'number');
   priorityInput.id = 't-priority';
   const submitButton = document.createElement('button');
   submitButton.innerHTML = 'submit to-do';
@@ -42,7 +45,8 @@ const getTodoInfo = () => {
   const title = document.getElementById('t-title').value;
   const description = document.getElementById('t-description').value;
   const priority = document.getElementById('t-priority').value;
-  const dueDate = document.getElementById('t-duedate').value;
+  let dueDate = document.getElementById('t-duedate').value;
+  dueDate = formatRelative(subDays(new Date(dueDate), 1), new Date());
   addTodo({title, description, priority, dueDate });
 };
 
