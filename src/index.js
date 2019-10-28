@@ -1,4 +1,4 @@
-import { ToDo, Project } from './logic';
+import { Project } from './logic';
 import * as storage from './storage';
 import * as view from './view';
 
@@ -45,10 +45,6 @@ const deleteTodo = (td) => {
 const changeCurrentProject = (index) => {
   currentProject = index;
 }
-
-const deleteProject = () => {
-  storage.removeProject(currentProject);
-};
 
 const loadView = () => {
   const project = getDefaultProject();
