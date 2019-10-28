@@ -1,4 +1,4 @@
-import { addTodo, inputProject } from './index';
+import { addTodo, createProject } from './index';
 
 const getTodoInfo = () => {
   const title = document.getElementById('t-title').value;
@@ -25,13 +25,20 @@ const renderTodoForm = () => {
   content.appendChild(submitButton);
 };
 
+const getProjectName = () => { 
+  const projectName = document.getElementById('newProjectName').value;
+  createProject(projectName);
+}
 const renderProjectForm = () => {
   const content = document.getElementById('content');
   const nameInput = document.createElement('input');
-  const submitButton = document.createElement('button');
-  submitButton.addEventListener('click', inputProject());
+  nameInput.id = 'newProjectName';
+  const submitButton = document.createElement('input');
+  submitButton.setAttribute('type','submit');
+  submitButton.setAttribute('value','create project');
   content.appendChild(nameInput);
   content.appendChild(submitButton);
+  submitButton.addEventListener('click', getProjectName());
 };
 
 const renderProjects = (projects) => {
@@ -44,8 +51,8 @@ const renderProjects = (projects) => {
   });
   const btnAddProject = document.createElement('button');
   btnAddProject.innerHTML = 'Add Project';
-  btnAddProject.addEventListener('click', renderProjectForm());
   projectContainer.appendChild(btnAddProject);
+  btnAddProject.addEventListener('click', renderProjectForm());
 };
 
 const renderProjectToDo = (project) => {

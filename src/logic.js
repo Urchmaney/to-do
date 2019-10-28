@@ -23,7 +23,7 @@ const Project = (name) => {
   };
   const getTodos = () => toDos;
   return {
-    getName, addTodo, removeTodo, getTodos,
+    name, getName, addTodo, removeTodo, getTodos,
   };
 };
 
