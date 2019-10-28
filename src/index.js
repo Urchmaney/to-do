@@ -6,28 +6,32 @@ let currentProject = 0;
 
 const createProject = (name) => {
   const project = Project(name);
-  currentProject = project;
-  storage.addProject(currentProject);
-  view.renderProjects();
+  storage.addProject(project);
+  const projects = storage.getProjects();
+  currentProject = projects.length - 1;
+  view.renderProjects(projects);
+  view.renderProjectToDo(project);
 };
 
 const getDefaultProject = () => {
   if (storage.getProjects().length === 0) {
     createProject('javascript');
   }
-
   return storage.getProjects()[currentProject];
 };
 
 
 const addTodo = (todo) => {
-  const newTodo = ToDo(todo);
   const projects = storage.getProjects();
-  projects[currentProject].addTodo(newTodo);
+  projects[currentProject].toDos.push(todo);
   storage.setProjects(projects);
+  view.renderProjects(projects);
+  view.renderProjectToDo(projects[currentProject]);
 };
 
-
+const changeCurrentProject = (index) => {
+  currentProject = index;
+}
 
 const deleteProject = () => {
   storage.removeProject(currentProject);
@@ -44,4 +48,5 @@ document.onload(loadView());
 export {
   addTodo,
   createProject,
+  changeCurrentProject,
 };

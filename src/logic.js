@@ -1,10 +1,6 @@
 const ToDo = (title, description, dueDate, priority) => {
-  const getTitle = () => title;
-  const getDescription = () => description;
-  const getDueDate = () => dueDate;
-  const getPriority = () => priority;
   return {
-    getTitle, getDescription, getDueDate, getPriority,
+    title, description, dueDate, priority,
   };
 };
 
@@ -23,7 +19,7 @@ const Project = (name) => {
   };
   const getTodos = () => toDos;
   return {
-    name, getName, addTodo, removeTodo, getTodos,
+    name, toDos, getName, addTodo, removeTodo, getTodos,
   };
 };
 
