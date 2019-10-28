@@ -23,9 +23,11 @@
     "date-fns": "^2.6.0",
     "file-loader": "^4.2.0",
     "fileloader": "^2.0.0",
+    "font-awesome": "^4.7.0",
     "style-loader": "^1.0.0"
   },
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.11.2",
     "eslint": "^6.6.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",

@@ -1,5 +1,8 @@
 import { addTodo, createProject, deleteTodo, changeCurrentProject } from './index';
 import { formatRelative, subDays } from 'date-fns';
+import './style.css';
+import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/js/all.js'
 
 const renderTodoForm = () => {
   const content = document.getElementById('content');
@@ -15,7 +18,8 @@ const renderTodoForm = () => {
   priorityInput.setAttribute('type', 'number');
   priorityInput.id = 't-priority';
   const submitButton = document.createElement('button');
-  submitButton.innerHTML = 'submit to-do';
+  //submitButton.classList.add('add-project-btn');
+  submitButton.innerHTML = '<i class="fas fa-plus"></i>';
   content.appendChild(titleInput);
   content.appendChild(descriptionInput);
   content.appendChild(dueDateInput);
@@ -36,6 +40,7 @@ const renderProjectToDo = (project) => {
   });
   const button = document.createElement('button');
   button.innerHTML = 'add To-do';
+  button.classList.add('add-td-btn');
   content.appendChild(button);
   button.addEventListener('click', renderTodoForm);
 };
@@ -70,20 +75,22 @@ const renderProjectForm = () => {
 const renderProjects = (projects) => {
   const projectContainer = document.getElementById('projects');
   projectContainer.innerHTML = '';
+  const btnAddProject = document.createElement('button');
+  btnAddProject.innerHTML = 'Add Project <i class="fas fa-plus"></i>';
+  btnAddProject.classList.add('add-project-btn');
+  projectContainer.appendChild(btnAddProject);
+  btnAddProject.addEventListener('click', renderProjectForm);
   projects.forEach((element, index) => {
     const project = document.createElement('div');
     project.id = `project${index}`;
     project.innerHTML = element.name;
+    project.classList.add('project');
     project.addEventListener('click', () => {
       renderProjectToDo(element);
       changeCurrentProject(index);
     });
     projectContainer.appendChild(project);
   });
-  const btnAddProject = document.createElement('button');
-  btnAddProject.innerHTML = 'Add Project';
-  projectContainer.appendChild(btnAddProject);
-  btnAddProject.addEventListener('click', renderProjectForm);
 };
 
 const renderTodo = (todo) => {
@@ -94,7 +101,8 @@ const renderTodo = (todo) => {
   const dueDate = document.createElement('div');
   const priority = document.createElement('div');
   const deleteBtn = document.createElement('button');
-  deleteBtn.innerHTML = 'Delete Todo';
+  deleteBtn.innerHTML = '<i class="far fa-times-circle"></i>';
+  deleteBtn.classList.add('delete-td-btn');
   title.innerHTML = todo.title;
   description.innerHTML = todo.description;
   dueDate.innerHTML = todo.dueDate;
