@@ -1,4 +1,4 @@
-import { Project } from './logic';
+import Project from './logic';
 import * as storage from './storage';
 import * as view from './view';
 
@@ -31,20 +31,19 @@ const addTodo = (todo) => {
 
 const deleteTodo = (td) => {
   const projects = storage.getProjects();
-  projects[currentProject].toDos.forEach((todo, index) =>
-   {
-      if (td === todo.title) {
-        projects[currentProject].toDos.splice(index, 1);
-      }
-    });
-    storage.setProjects(projects);
-    view.renderProjects(projects, currentProject);
-    view.renderProjectToDo(projects[currentProject]);
-  };
+  projects[currentProject].toDos.forEach((todo, index) => {
+    if (td === todo.title) {
+      projects[currentProject].toDos.splice(index, 1);
+    }
+  });
+  storage.setProjects(projects);
+  view.renderProjects(projects, currentProject);
+  view.renderProjectToDo(projects[currentProject]);
+};
 
 const changeCurrentProject = (index) => {
   currentProject = index;
-}
+};
 
 const loadView = () => {
   const project = getDefaultProject();

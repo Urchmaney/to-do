@@ -5,6 +5,6 @@ const Project = (name) => {
   };
 };
 
-export {
- Project,
+export default {
+  Project,
 };

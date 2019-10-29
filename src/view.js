@@ -1,8 +1,21 @@
-import { addTodo, createProject, deleteTodo, changeCurrentProject } from './index';
 import { formatRelative, subDays } from 'date-fns';
+import {
+  addTodo, createProject, deleteTodo, changeCurrentProject,
+} from './index';
 import './style.css';
-import '@fortawesome/fontawesome-free/css/all.css'
-import '@fortawesome/fontawesome-free/js/all.js'
+import '@fortawesome/fontawesome-free/css/all.css';
+import '@fortawesome/fontawesome-free/js/all';
+
+const getTodoInfo = () => {
+  const title = document.getElementById('t-title').value;
+  const description = document.getElementById('t-description').value;
+  const priority = document.getElementById('t-priority').value;
+  let dueDate = document.getElementById('t-duedate').value;
+  dueDate = formatRelative(subDays(new Date(dueDate), 1), new Date());
+  addTodo({
+    title, description, priority, dueDate,
+  });
+};
 
 const renderTodoForm = () => {
   const content = document.getElementById('content');
@@ -13,12 +26,12 @@ const renderTodoForm = () => {
   descriptionInput.id = 't-description';
   const dueDateInput = document.createElement('input');
   dueDateInput.setAttribute('type', 'date');
-  dueDateInput.id = 't-duedate'
+  dueDateInput.id = 't-duedate';
   const priorityInput = document.createElement('input');
   priorityInput.setAttribute('type', 'number');
   priorityInput.id = 't-priority';
   const submitButton = document.createElement('button');
-  //submitButton.classList.add('add-project-btn');
+  // submitButton.classList.add('add-project-btn');
   submitButton.innerHTML = '<i class="fas fa-plus"></i>';
   content.appendChild(titleInput);
   content.appendChild(descriptionInput);
@@ -26,78 +39,6 @@ const renderTodoForm = () => {
   content.appendChild(priorityInput);
   content.appendChild(submitButton);
   submitButton.addEventListener('click', getTodoInfo);
-};
-
-const renderProjectToDo = (project) => {
-  const content = document.getElementById('content');
-  content.innerHTML = '';
-  project.toDos.forEach((element, index) => {
-    const todo = document.createElement('div');
-    todo.id = `todo${index}`;
-    todo.innerHTML = `${element.title}  ${element.dueDate}`;
-    todo.addEventListener('click', () => { renderTodo(element); });
-    content.appendChild(todo);
-  });
-  const button = document.createElement('button');
-  button.innerHTML = 'add To-do';
-  button.classList.add('add-td-btn');
-  content.appendChild(button);
-  button.addEventListener('click', renderTodoForm);
-};
-
-
-const getTodoInfo = () => {
-  const title = document.getElementById('t-title').value;
-  const description = document.getElementById('t-description').value;
-  const priority = document.getElementById('t-priority').value;
-  let dueDate = document.getElementById('t-duedate').value;
-  dueDate = formatRelative(subDays(new Date(dueDate), 1), new Date());
-  addTodo({title, description, priority, dueDate });
-};
-
-const getProjectName = () => { 
-  const projectName = document.getElementById('newProjectName').value;
-  createProject(projectName);
-}
-const renderProjectForm = () => {
-  const content = document.getElementById('content');
-  content.innerHTML = '';
-  const nameInput = document.createElement('input');
-  nameInput.id = 'newProjectName';
-  const submitButton = document.createElement('input');
-  submitButton.setAttribute('type','submit');
-  submitButton.setAttribute('value','create project');
-  content.appendChild(nameInput);
-  content.appendChild(submitButton);
-  submitButton.addEventListener('click', getProjectName);
-};
-
-const renderProjects = (projects, currentProject) => {
-  const projectContainer = document.getElementById('projects');
-  projectContainer.innerHTML = '';
-  const btnAddProject = document.createElement('button');
-  btnAddProject.innerHTML = 'Add Project <i class="fas fa-plus"></i>';
-  btnAddProject.classList.add('add-project-btn');
-  projectContainer.appendChild(btnAddProject);
-  btnAddProject.addEventListener('click', renderProjectForm);
-  projects.forEach((element, index) => {
-    const project = document.createElement('div');
-    project.id = `project${index}`;
-    project.innerHTML = element.name;
-    if (index === currentProject){
-      project.classList.add('currProject');
-    }
-    project.classList.add('project');
-    project.addEventListener('click', () => {
-      renderProjectToDo(element);
-      const cur = document.getElementsByClassName('currProject')[0];
-      cur.classList.remove('currProject');
-      changeCurrentProject(index);
-      project.classList.add('currProject');
-      renderProjects(projects, index);
-    });
-    projectContainer.appendChild(project);
-  });
 };
 
 const renderTodo = (todo) => {
@@ -119,8 +60,72 @@ const renderTodo = (todo) => {
   content.appendChild(dueDate);
   content.appendChild(priority);
   content.appendChild(deleteBtn);
-  deleteBtn.addEventListener('click', () => { deleteTodo(todo.title)});
+  deleteBtn.addEventListener('click', () => { deleteTodo(todo.title); });
 };
+
+const renderProjectToDo = (project) => {
+  const content = document.getElementById('content');
+  content.innerHTML = '';
+  project.toDos.forEach((element, index) => {
+    const todo = document.createElement('div');
+    todo.id = `todo${index}`;
+    todo.innerHTML = `${element.title}  ${element.dueDate}`;
+    todo.addEventListener('click', () => { renderTodo(element); });
+    content.appendChild(todo);
+  });
+  const button = document.createElement('button');
+  button.innerHTML = 'add To-do';
+  button.classList.add('add-td-btn');
+  content.appendChild(button);
+  button.addEventListener('click', renderTodoForm);
+};
+
+
+const getProjectName = () => {
+  const projectName = document.getElementById('newProjectName').value;
+  createProject(projectName);
+};
+const renderProjectForm = () => {
+  const content = document.getElementById('content');
+  content.innerHTML = '';
+  const nameInput = document.createElement('input');
+  nameInput.id = 'newProjectName';
+  const submitButton = document.createElement('input');
+  submitButton.setAttribute('type', 'submit');
+  submitButton.setAttribute('value', 'create project');
+  content.appendChild(nameInput);
+  content.appendChild(submitButton);
+  submitButton.addEventListener('click', getProjectName);
+};
+
+const renderProjects = (projects, currentProject) => {
+  const projectContainer = document.getElementById('projects');
+  projectContainer.innerHTML = '';
+  const btnAddProject = document.createElement('button');
+  btnAddProject.innerHTML = 'Add Project <i class="fas fa-plus"></i>';
+  btnAddProject.classList.add('add-project-btn');
+  projectContainer.appendChild(btnAddProject);
+  btnAddProject.addEventListener('click', renderProjectForm);
+  projects.forEach((element, index) => {
+    const project = document.createElement('div');
+    project.id = `project${index}`;
+    project.innerHTML = element.name;
+    if (index === currentProject) {
+      project.classList.add('currProject');
+    }
+    project.classList.add('project');
+    project.addEventListener('click', () => {
+      renderProjectToDo(element);
+      const cur = document.getElementsByClassName('currProject')[0];
+      cur.classList.remove('currProject');
+      changeCurrentProject(index);
+      project.classList.add('currProject');
+      renderProjects(projects, index);
+    });
+    projectContainer.appendChild(project);
+  });
+};
+
 
 export {
   renderProjects,
