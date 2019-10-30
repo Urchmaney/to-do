@@ -1,20 +1,56 @@
 import { formatRelative, subDays } from 'date-fns';
 import {
-  addTodo, createProject, deleteTodo, changeCurrentProject,
+  addTodo, createProject, deleteTodo, changeCurrentProject, updateTodo,
 } from './index';
 import './style.css';
 import '@fortawesome/fontawesome-free/css/all.css';
 import '@fortawesome/fontawesome-free/js/all';
 
-const getTodoInfo = () => {
+const getTodoInfo = (option, todo) => {
   const title = document.getElementById('t-title').value;
   const description = document.getElementById('t-description').value;
   const priority = document.getElementById('t-priority').value;
   let dueDate = document.getElementById('t-duedate').value;
   dueDate = formatRelative(subDays(new Date(dueDate), 1), new Date());
-  addTodo({
-    title, description, priority, dueDate,
-  });
+  if (option === 0) {
+    addTodo({
+      title, description, priority, dueDate,
+    });
+  }
+  else {
+    updateTodo(todo, title, description, dueDate, priority);
+  }
+};
+
+
+const renderEditForm = (todo) => {
+  const content = document.getElementById('content');
+  content.innerHTML = '';
+  const titleInput = document.createElement('input');
+  titleInput.setAttribute('value', todo.title);
+  titleInput.id = 't-title';
+  const descriptionInput = document.createElement('input');
+  descriptionInput.setAttribute('value', todo.description);
+  descriptionInput.id = 't-description';
+  const dueDateInput = document.createElement('input');
+  dueDateInput.setAttribute('type', 'date');
+  dueDateInput.setAttribute('value', todo.dueDate);
+  dueDateInput.id = 't-duedate';
+  const priorityInput = document.createElement('input');
+  priorityInput.setAttribute('type', 'number');
+  priorityInput.setAttribute('value', todo.priority);
+  priorityInput.id = 't-priority';
+  const submitButton = document.createElement('button');
+  submitButton.innerHTML = '<i class="fas fa-plus"></i>';
+  content.appendChild(titleInput);
+  content.innerHTML += '<br>';
+  content.appendChild(descriptionInput);
+  content.innerHTML += '<br>';
+  content.appendChild(dueDateInput);
+  content.innerHTML += '<br>';
+  content.appendChild(priorityInput);
+  content.appendChild(submitButton);
+  submitButton.addEventListener('click', () => { getTodoInfo(1, todo); });
 };
 
 const renderTodoForm = () => {
@@ -34,7 +70,6 @@ const renderTodoForm = () => {
   priorityInput.setAttribute('type', 'number');
   priorityInput.id = 't-priority';
   const submitButton = document.createElement('button');
-  // submitButton.classList.add('add-project-btn');
   submitButton.innerHTML = '<i class="fas fa-plus"></i>';
   content.appendChild(titleInput);
   content.innerHTML += '<br>';
@@ -44,7 +79,7 @@ const renderTodoForm = () => {
   content.innerHTML += '<br>';
   content.appendChild(priorityInput);
   content.appendChild(submitButton);
-  submitButton.addEventListener('click', getTodoInfo);
+  submitButton.addEventListener('click', () => { getTodoInfo(0); });
 };
 
 const renderTodo = (todo) => {
@@ -54,9 +89,9 @@ const renderTodo = (todo) => {
   const description = document.createElement('div');
   const dueDate = document.createElement('div');
   const priority = document.createElement('div');
-  const deleteBtn = document.createElement('button');
-  deleteBtn.innerHTML = '<i class="far fa-times-circle"></i>';
-  deleteBtn.classList.add('delete-td-btn');
+  const editBtn = document.createElement('button');
+  editBtn.innerHTML = 'Edit Todo';
+  editBtn.addEventListener('click', () => renderEditForm(todo));
   title.innerHTML = todo.title;
   description.innerHTML = todo.description;
   dueDate.innerHTML = todo.dueDate;
@@ -65,8 +100,7 @@ const renderTodo = (todo) => {
   content.appendChild(description);
   content.appendChild(dueDate);
   content.appendChild(priority);
-  content.appendChild(deleteBtn);
-  deleteBtn.addEventListener('click', () => { deleteTodo(todo.title); });
+  content.appendChild(editBtn);
 };
 
 const renderProjectToDo = (project) => {
@@ -74,10 +108,16 @@ const renderProjectToDo = (project) => {
   content.innerHTML = '';
   project.toDos.forEach((element, index) => {
     const todo = document.createElement('div');
+    todo.classList.add('todo');
     todo.id = `todo${index}`;
     todo.innerHTML = `${element.title}  ${element.dueDate}`;
     todo.addEventListener('click', () => { renderTodo(element); });
     content.appendChild(todo);
+    const deleteBtn = document.createElement('button');
+    deleteBtn.innerHTML = '<i class="far fa-times-circle"></i>';
+    deleteBtn.classList.add('delete-td-btn');
+    todo.appendChild(deleteBtn);
+    deleteBtn.addEventListener('click', () => { deleteTodo(todo.title); });
   });
   const button = document.createElement('button');
   button.innerHTML = 'add To-do';

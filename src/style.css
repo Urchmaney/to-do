@@ -32,10 +32,10 @@ header{
     padding:10px;
 }
 
+.todo:hover{
+    background-color: lightgrey;
+}
 .delete-td-btn{
-    position: absolute;
-    right:10px;
-    top:10px;
     color:red;
 }
 

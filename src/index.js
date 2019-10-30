@@ -45,6 +45,20 @@ const changeCurrentProject = (index) => {
   currentProject = index;
 };
 
+const updateTodo = (todo, title, description, dueDate, priority) => {
+  const projects = storage.getProjects();
+  projects[currentProject].toDos.forEach((td, index) => {
+    if (todo.title === td.title) {
+      projects[currentProject].toDos[index].title = title;
+      projects[currentProject].toDos[index].description = description;
+      projects[currentProject].toDos[index].dueDate = dueDate;
+      projects[currentProject].toDos[index].priority = priority;
+    }
+  });
+  storage.setProjects(projects);
+  view.renderProjectToDo(projects[currentProject]);
+};
+
 const loadView = () => {
   const project = getDefaultProject();
   view.renderProjects(storage.getProjects(), currentProject);
@@ -58,4 +72,5 @@ export {
   createProject,
   changeCurrentProject,
   deleteTodo,
+  updateTodo,
 };
