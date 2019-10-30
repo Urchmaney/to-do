@@ -107,16 +107,20 @@ const renderProjectToDo = (project) => {
   content.innerHTML = '';
   project.toDos.forEach((element, index) => {
     const todo = document.createElement('div');
-    todo.classList.add('todo');
-    todo.id = `todo${index}`;
-    todo.innerHTML = `${element.title}  ${element.dueDate}`;
-    todo.addEventListener('click', () => { renderTodo(element); });
+    const todoInfoBtn = document.createElement('span');
+    const todoInfo = document.createElement('p');
+    todoInfo.innerHTML = `${element.title}  ${element.dueDate}`;
+    todoInfo.addEventListener('click', () => { renderTodo(element); });
     content.appendChild(todo);
     const deleteBtn = document.createElement('button');
     deleteBtn.innerHTML = '<i class="far fa-times-circle"></i>';
     deleteBtn.classList.add('delete-td-btn');
-    todo.appendChild(deleteBtn);
-    deleteBtn.addEventListener('click', () => { deleteTodo(todo.title); });
+    todoInfo.classList.add('todo');
+    todoInfo.id = `todo${index}`;
+    todoInfoBtn.appendChild(todoInfo);
+    todoInfoBtn.appendChild(deleteBtn);
+    deleteBtn.addEventListener('click', () => { deleteTodo(element.title); });
+    todo.appendChild(todoInfoBtn);
   });
   const button = document.createElement('button');
   button.innerHTML = 'add To-do';
