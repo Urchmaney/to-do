@@ -16,8 +16,7 @@ const getTodoInfo = (option, todo) => {
     addTodo({
       title, description, priority, dueDate,
     });
-  }
-  else {
+  } else {
     updateTodo(todo, title, description, dueDate, priority);
   }
 };
