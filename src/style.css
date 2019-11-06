@@ -1,0 +1,153 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+input{
+    padding:10px;
+    margin-bottom: 4px;
+    border-radius:5px;
+}
+
+header{
+    text-align: center;
+}
+#projects{
+    height: 100px;
+}
+
+#content{
+    height: 100px;
+    position: relative;
+    padding:15px;
+    padding-top: 70px;
+    padding-left : 80px;
+}
+
+#container{
+   display: grid;
+   grid-template-columns: 30% 70%;
+}
+
+.add-project-btn{
+    border: 1px solid cadetblue;
+    border-radius: 5px;
+    background-color: transparent;
+    font-size: 30px;
+    margin-bottom: 10px;
+    float:right;
+    padding:10px;
+}
+
+.to-do-create-btn{
+    height: 43px;
+    background-color: cadetblue;
+    width: 80px;
+    border-radius: 5px;
+    margin-left: 5px;
+}
+
+.project-create-btn{
+    height: 43px;
+    background-color: cadetblue;
+    width: 110px;
+    border-radius: 5px;
+    margin-left: 5px;
+}
+.todo{
+    position: relative;
+    width:300px;
+    height : 70px;
+    border-radius: 5px;
+    padding:5px;
+    padding-left:10px;
+    margin-bottom: 5px;
+    border : 1px solid gray;
+}
+
+.to-do-title{
+    font-size: 20px;
+}
+
+.to-do-due-date{
+    font-size: 15px;
+    padding-left : 10px;
+}
+.todo:hover{
+    background-color: lightgrey;
+    cursor: pointer;
+}
+.delete-td-btn{
+    color:red;
+    position: absolute;
+    right:3px;
+    top:5px;
+
+}
+
+.project{
+    border:0.2px solid black;
+    padding: 5px;
+    background-color: transparent;
+    border-radius: 5px;
+    clear: both;
+    height : 50px;
+    font-size : 23px;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.project:hover{
+    background-color: lightgrey;
+}
+
+.currProject{
+    background-color: cadetblue;
+}
+
+.add-td-btn{
+    width:200px;
+    height:30px;
+    border : none;
+    border-radius: 5px;
+    background-color: cadetblue;
+    color:#ececec;
+    margin-top:10px;    
+}
+
+.t-d-title{
+    font-size:18px;
+    
+}
+
+.t-d-description{
+    font-size: 18px;
+    font-weight: bold;
+    margin-top:10px;
+    height:100px;
+    width:300px;
+    border:1px solid gray;
+    border-radius: 5px;
+    padding:10px;
+}
+
+.t-d-due-date{
+    font-size: 15px;
+    font-style: italic;
+}
+
+.t-d-priority{
+    margin-top:5px;
+    font-size: 12px;
+}
+
+.td-edit-btn{
+    height:30px;
+    width: 100px;
+    background-color: cadetblue;
+    margin-top:10px;
+    color:white;
+    border-radius: 4px;
+    border:none;
+}
